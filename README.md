@@ -28,6 +28,8 @@ Version 1:
 Trains the model to analyze tweets and classifies words from a sample set from Kaggle to identify positive and negative works in twitter. 
 The model then applies what it learned to the csv sample set from the Reply by Buffer tool export. Tags and Tweet text are only included in this csv file sample. 
 Th emodel then prints out words with the most frequency and the ratio between the postive and negative tweet frequency to give more detail about the sentiment of the support tweets. 
+Firefox screenshot of what it looks like.  https://screenshots.firefox.com/iOl1t5JHuyhPCCL3/localhost
+
 
 # Version 2 Use Cases
 As a reporter for the Support Community Release report, I want to be able to see positive and negative summaries for the different languages that are offered community support in twitter for Mozilla's Social Support Team. 
