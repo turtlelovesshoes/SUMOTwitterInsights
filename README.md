@@ -29,7 +29,7 @@ Trains the model to analyze tweets and classifies words from a sample set from K
 The model then applies what it learned to the csv sample set from the Reply by Buffer tool export. Tags and Tweet text are only included in this csv file sample. 
 Th emodel then prints out words with the most frequency and the ratio between the postive and negative tweet frequency to give more detail about the sentiment of the support tweets. 
 
-# Verson 2 Use Cases
+# Version 2 Use Cases
 As a reporter for the Support Community Release report, I want to be able to see positive and negative summaries for the different languages that are offered community support in twitter for Mozilla's Social Support Team. 
 As a interpreter of this report, I want to be able to ask, what tweets are contributing the negativity to this keyword - or tag that describes the user issue?, what are the biggest pain points of the tweets that increased from one week to the next, and what are the tweets displayed for each postive or negative word? 
 (More being added week of Oct 8 - Oct 20)
