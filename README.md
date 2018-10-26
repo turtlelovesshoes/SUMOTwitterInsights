@@ -38,6 +38,36 @@ As a interpreter of this report, I want to be able to ask, what tweets are contr
 
 Version 2 model - Jupyter Notebook Display desired. 
 
+# Version 2.5 Use Case
+Feedback 10/9/18: 
+    Nice!
+Some nice to have features: 
+   1/  Do we analyze the Support sample - AoA and Help Me only
+   2/ Week to week change in keywords
+   3/ analyze the outgoing tweets only (data filtered)
+   4/analyze the question_answers only, filtered by volunteer *(quality of user reply (are they more positive or negative))
+        (?character limit?)
+   5/Train data based on questions_question and questions_answer random sample
+    b/then - analyze if the positve tweets are more likely solved? 
+    
+    6/User story: removal of feature in Firefox, are we negative or positive with major product changes in 
+        
+    Priotize other open text Right away - 
+    Questions in the forum
+    CSAT
+    Reddit
+    google play store (original and responses)
+    
+    Action Item: Open git issue
+    
+    Meeting with Ben 10/26
+    Conclusion and cleaned up use cases desired: 
+    Alerts for negative and positive words weekly or daily
+    Volunteer responses positive and negative in the support forum
+    CSAT training output
+    [later]German added as a lanuage - or a how to  - (this would require  to convert to english first, we can incorporate this later)
+    [now] webpat 
+
 
 # Requirements and Library Versions
 *Python version (3)
