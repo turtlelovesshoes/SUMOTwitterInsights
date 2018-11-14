@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="charts/nv.d3.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
+    <script src="charts/nv.d3.js"></script>
+    <script src="charts/stream_layers.js"></script>
+     <script src="charts/jquery-3.3.1.min.js"></script>
+
+    <style>
+        text {
+            font: 12px sans-serif;
+        }
+        svg {
+            display: block;
+        }
+        html, body, #chart1, svg {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class='topn'>
+<select>
+  N Most Polarized Words
+  <option selected disabled>N Words to Display</option>
+  <option value="10">10</option>
+  <option value="20">20</option>
+  <option value="30">30</option>
+  <option value="40">40</option>
+  <option value="50">50</option>
+</select>
+</div>
+<div id="chart1" class='with-3d-shadow with-transitions'>
+    <svg></svg>
+</div>
+
+<script>
+		let data = [{'key': 'Positive', 'values': [{'label': 'thank', 'value': 0.898989898989899}, {'label': 'share', 'value': 0.8958333333333334}, {'label': 'able', 'value': 0.10526315789473684}, {'label': 'either', 'value': 0.10989010989010987}, {'label': 'stop', 'value': 0.10989010989010987}, {'label': 'ca', 'value': 0.11363636363636365}, {'label': 'awesome', 'value': 0.8837209302325582}, {'label': 'ProgDisorder', 'value': 0.8837209302325582}, {'label': '63', 'value': 0.8837209302325582}, {'label': 'upgrade', 'value': 0.1176470588235294}, {'label': 'seems', 'value': 0.11904761904761905}, {'label': 'changes', 'value': 0.12195121951219512}, {'label': 'no', 'value': 0.125}, {'label': 'Windows10', 'value': 0.12820512820512822}, {'label': 'prefer', 'value': 0.12820512820512822}, {'label': 'sucks', 'value': 0.12820512820512822}, {'label': 'error', 'value': 0.12987012987012986}, {'label': 'drivers', 'value': 0.8684210526315791}, {'label': 'address', 'value': 0.13513513513513511}, {'label': 'why', 'value': 0.13513513513513511}, {'label': 'blank', 'value': 0.8648648648648649}, {'label': 'Check', 'value': 0.8648648648648649}, {'label': 'crashing', 'value': 0.136986301369863}, {'label': 'said', 'value': 0.136986301369863}, {'label': 'na', 'value': 0.136986301369863}, {'label': 'Let', 'value': 0.8630136986301371}, {'label': 'Did', 'value': 0.1388888888888889}, {'label': 'away', 'value': 0.1388888888888889}, {'label': 'internet', 'value': 0.14492753623188406}, {'label': 'Apple', 'value': 0.14492753623188406}, {'label': 'dont', 'value': 0.14492753623188406}, {'label': 'fix', 'value': 0.14705882352941174}, {'label': 'Trump', 'value': 0.8484848484848485}, {'label': 'beta', 'value': 0.8484848484848485}, {'label': 'First', 'value': 0.8484848484848485}, {'label': 'lets', 'value': 0.8484848484848485}, {'label': 'dan_abramov', 'value': 0.8484848484848485}, {'label': 'record', 'value': 0.8484848484848485}, {'label': 'perform', 'value': 0.8484848484848485}, {'label': 'luck', 'value': 0.8484848484848485}, {'label': 'Love', 'value': 0.8484848484848485}, {'label': 'play', 'value': 0.15384615384615385}, {'label': 'lost', 'value': 0.15384615384615385}, {'label': 'phone', 'value': 0.15384615384615385}, {'label': 'slow', 'value': 0.15873015873015872}, {'label': 'download', 'value': 0.16129032258064516}, {'label': 'data', 'value': 0.16129032258064516}, {'label': 'being', 'value': 0.16129032258064516}, {'label': 'answer', 'value': 0.8387096774193549}, {'label': 'wo', 'value': 0.1639344262295082}, {'label': 'sync', 'value': 0.16666666666666666}, {'label': 'vvincebxl', 'value': 0.8333333333333334}, {'label': 'forced', 'value': 0.16666666666666666}, {'label': 'wrong', 'value': 0.16666666666666666}, {'label': 'goes', 'value': 0.16666666666666666}, {'label': 'past', 'value': 0.16666666666666666}, {'label': '62', 'value': 0.16666666666666666}, {'label': 'faster', 'value': 0.1694915254237288}, {'label': 'let', 'value': 0.1724137931034483}, {'label': 'few', 'value': 0.17543859649122806}, {'label': 'Mkll', 'value': 0.8214285714285714}, {'label': 'name', 'value': 0.8214285714285714}, {'label': 'talking', 'value': 0.8214285714285714}, {'label': '7', 'value': 0.8214285714285714}, {'label': 'android', 'value': 0.8214285714285714}, {'label': 'State', 'value': 0.8214285714285714}, {'label': 'official', 'value': 0.8214285714285714}, {'label': 'Awesome', 'value': 0.8214285714285714}, {'label': 'Download', 'value': 0.8214285714285714}, {'label': 'Perhaps', 'value': 0.8214285714285714}, {'label': 'Get', 'value': 0.8214285714285714}, {'label': 'GoogleGate', 'value': 0.8214285714285714}, {'label': 'join', 'value': 0.8214285714285714}, {'label': 'Thank', 'value': 0.8214285714285714}, {'label': 'Should', 'value': 0.8214285714285714}, {'label': 'persists', 'value': 0.8214285714285714}, {'label': 'EnglishMossop', 'value': 0.8214285714285714}, {'label': 'facebook', 'value': 0.17857142857142858}, {'label': 'CTKAG', 'value': 0.8214285714285714}, {'label': 'shared', 'value': 0.8214285714285714}, {'label': 'Free', 'value': 0.8214285714285714}, {'label': 'blue', 'value': 0.8214285714285714}, {'label': 'miss', 'value': 0.17857142857142858}, {'label': 'together', 'value': 0.8214285714285714}, {'label': 'control', 'value': 0.17857142857142858}, {'label': 'Ubuntu', 'value': 0.17857142857142858}, {'label': 'mine', 'value': 0.17857142857142858}, {'label': 'box', 'value': 0.17857142857142858}, {'label': 'tech', 'value': 0.17857142857142858}, {'label': 'screen', 'value': 0.17857142857142858}, {'label': 'feel', 'value': 0.17857142857142858}, {'label': 'hi', 'value': 0.8214285714285714}, {'label': 'Caish11', 'value': 0.8214285714285714}, {'label': 'store', 'value': 0.8214285714285714}, {'label': 'days', 'value': 0.1851851851851852}, {'label': 'without', 'value': 0.04166666666666666}, {'label': 'following', 'value': 0.9581589958158996}, {'label': 'CV', 'value': 0.9519230769230768}, {'label': 'Welcome', 'value': 0.9212598425196852}]}, {'key': 'Negative', 'values': [{'label': 'thank', 'value': -0.101010101010101}, {'label': 'share', 'value': -0.10416666666666667}, {'label': 'able', 'value': -0.8947368421052632}, {'label': 'either', 'value': -0.8901098901098901}, {'label': 'stop', 'value': -0.8901098901098901}, {'label': 'ca', 'value': -0.8863636363636362}, {'label': 'awesome', 'value': -0.11627906976744184}, {'label': 'ProgDisorder', 'value': -0.11627906976744184}, {'label': '63', 'value': -0.11627906976744184}, {'label': 'upgrade', 'value': -0.8823529411764706}, {'label': 'seems', 'value': -0.8809523809523809}, {'label': 'changes', 'value': -0.878048780487805}, {'label': 'no', 'value': -0.875}, {'label': 'Windows10', 'value': -0.8717948717948718}, {'label': 'prefer', 'value': -0.8717948717948718}, {'label': 'sucks', 'value': -0.8717948717948718}, {'label': 'error', 'value': -0.8701298701298701}, {'label': 'drivers', 'value': -0.13157894736842105}, {'label': 'address', 'value': -0.8648648648648649}, {'label': 'why', 'value': -0.8648648648648649}, {'label': 'blank', 'value': -0.13513513513513511}, {'label': 'Check', 'value': -0.13513513513513511}, {'label': 'crashing', 'value': -0.8630136986301371}, {'label': 'said', 'value': -0.8630136986301371}, {'label': 'na', 'value': -0.8630136986301371}, {'label': 'Let', 'value': -0.136986301369863}, {'label': 'Did', 'value': -0.8611111111111112}, {'label': 'away', 'value': -0.8611111111111112}, {'label': 'internet', 'value': -0.855072463768116}, {'label': 'Apple', 'value': -0.855072463768116}, {'label': 'dont', 'value': -0.855072463768116}, {'label': 'fix', 'value': -0.8529411764705882}, {'label': 'Trump', 'value': -0.15151515151515152}, {'label': 'beta', 'value': -0.15151515151515152}, {'label': 'First', 'value': -0.15151515151515152}, {'label': 'lets', 'value': -0.15151515151515152}, {'label': 'dan_abramov', 'value': -0.15151515151515152}, {'label': 'record', 'value': -0.15151515151515152}, {'label': 'perform', 'value': -0.15151515151515152}, {'label': 'luck', 'value': -0.15151515151515152}, {'label': 'Love', 'value': -0.15151515151515152}, {'label': 'play', 'value': -0.8461538461538461}, {'label': 'lost', 'value': -0.8461538461538461}, {'label': 'phone', 'value': -0.8461538461538461}, {'label': 'slow', 'value': -0.8412698412698413}, {'label': 'download', 'value': -0.8387096774193549}, {'label': 'data', 'value': -0.8387096774193549}, {'label': 'being', 'value': -0.8387096774193549}, {'label': 'answer', 'value': -0.16129032258064516}, {'label': 'wo', 'value': -0.8360655737704918}, {'label': 'sync', 'value': -0.8333333333333334}, {'label': 'vvincebxl', 'value': -0.16666666666666666}, {'label': 'forced', 'value': -0.8333333333333334}, {'label': 'wrong', 'value': -0.8333333333333334}, {'label': 'goes', 'value': -0.8333333333333334}, {'label': 'past', 'value': -0.8333333333333334}, {'label': '62', 'value': -0.8333333333333334}, {'label': 'faster', 'value': -0.8305084745762712}, {'label': 'let', 'value': -0.8275862068965517}, {'label': 'few', 'value': -0.8245614035087719}, {'label': 'Mkll', 'value': -0.17857142857142858}, {'label': 'name', 'value': -0.17857142857142858}, {'label': 'talking', 'value': -0.17857142857142858}, {'label': '7', 'value': -0.17857142857142858}, {'label': 'android', 'value': -0.17857142857142858}, {'label': 'State', 'value': -0.17857142857142858}, {'label': 'official', 'value': -0.17857142857142858}, {'label': 'Awesome', 'value': -0.17857142857142858}, {'label': 'Download', 'value': -0.17857142857142858}, {'label': 'Perhaps', 'value': -0.17857142857142858}, {'label': 'Get', 'value': -0.17857142857142858}, {'label': 'GoogleGate', 'value': -0.17857142857142858}, {'label': 'join', 'value': -0.17857142857142858}, {'label': 'Thank', 'value': -0.17857142857142858}, {'label': 'Should', 'value': -0.17857142857142858}, {'label': 'persists', 'value': -0.17857142857142858}, {'label': 'EnglishMossop', 'value': -0.17857142857142858}, {'label': 'facebook', 'value': -0.8214285714285714}, {'label': 'CTKAG', 'value': -0.17857142857142858}, {'label': 'shared', 'value': -0.17857142857142858}, {'label': 'Free', 'value': -0.17857142857142858}, {'label': 'blue', 'value': -0.17857142857142858}, {'label': 'miss', 'value': -0.8214285714285714}, {'label': 'together', 'value': -0.17857142857142858}, {'label': 'control', 'value': -0.8214285714285714}, {'label': 'Ubuntu', 'value': -0.8214285714285714}, {'label': 'mine', 'value': -0.8214285714285714}, {'label': 'box', 'value': -0.8214285714285714}, {'label': 'tech', 'value': -0.8214285714285714}, {'label': 'screen', 'value': -0.8214285714285714}, {'label': 'feel', 'value': -0.8214285714285714}, {'label': 'hi', 'value': -0.17857142857142858}, {'label': 'Caish11', 'value': -0.17857142857142858}, {'label': 'store', 'value': -0.17857142857142858}, {'label': 'days', 'value': -0.8148148148148149}, {'label': 'without', 'value': -0.9583333333333334}, {'label': 'following', 'value': -0.04184100418410042}, {'label': 'CV', 'value': -0.048076923076923066}, {'label': 'Welcome', 'value': -0.07874015748031496}]}]
+
+        drawChart = (topN) => {
+            var chart;
+            nv.addGraph(function() {
+                const colorMap = {"Positive": "green",
+                              "Negative": "red"};
+
+                chart = nv.models.multiBarHorizontalChart()
+                    .x(function(d) { return d.label })
+                    .y(function(d) { return d.value })
+                    .barColor(function(d) {return colorMap[d.key]})
+                    .showControls(false)
+                    .showLegend(false)
+                    .margin({left: 100})
+                    .stacked(true);
+
+                chart.yAxis.tickFormat(d3.format(',.2f'));
+
+                chart.yAxis.axisLabel('<- Negative | Positive ->')
+                           .margin({right: 200})
+                chart.xAxis.axisLabel('Word').axisLabelDistance(40);
+
+                renderedData = [
+                    {"key": "Positive",
+                     "values": data[0].values.slice(0, topN)},
+                     {"key": "Negative",
+                     "values": data[1].values.slice(0, topN)},
+                ]
+                d3.select('#chart1 svg')
+                    .datum(renderedData)
+                    .call(chart);
+
+                //nv.utils.windowResize(chart.update);
+
+                chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+                chart.state.dispatch.on('change', function(state){
+                    nv.log('state', JSON.stringify(state));
+                });
+
+                //chart.options({height: 3000})
+                return chart;
+
+            }, function() {
+                d3.selectAll(".nv-bar").on('click',
+                    function(){
+                        d3.select(this)
+                        .attr("id", "selectedBar")  
+                        console.log(this)
+                        let word = this.__data__['label']
+                        let s = this.__data__['key'].toLocaleLowerCase()
+                        let search = word + " " + s[0] + s[1] + s[2]
+                        console.log(search)
+                        document.getElementsByTagName("input")[0].value = search
+
+                        const event = new KeyboardEvent('keyup', {
+                            key: 'Enter',
+                          });
+
+                        document.querySelector('input').dispatchEvent(event);
+                    });
+                });
+        }
+
+        drawChart(10)
+
+        $(".topn option").click(function() {
+            drawChart(parseInt(this.value))
+        })
+
+
+</script>
+</body>
+</html>

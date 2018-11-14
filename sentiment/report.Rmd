@@ -1,0 +1,49 @@
+---
+title: "Demo"
+output:
+  html_document:
+    theme: cosmo
+---
+
+<style>
+div#chart1 {
+  height: 600px;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Polarized Words
+The following words have a high likelihood of being assoicated with either a positive or negative tweet.
+
+```{r, fig.height=30}
+setwd("./charts/")
+htmltools::includeHTML("barchart-horiz.html")
+```
+
+Click on the bars above to update the following table, or do a custom search using the search bar!
+
+
+
+
+
+```{r}
+library(DT)
+library(data.table)
+
+options(DT.options = list(
+  searching=T,
+  paging=T,
+  info=F)
+)
+
+d <- fread("./data/data_pred.csv")[,.(text, pred, tags)]
+d$Tweet <- gsub('"', '', d$text)
+d$Sentiment <- d$pred
+
+datatable(d[,.(Tweet, Sentiment, tags)], class='cell-border stripe') %>% formatStyle(
+  'Sentiment',
+  color = styleEqual(c("neg", "pos"), c('#c54040', '#40a040')))
+```

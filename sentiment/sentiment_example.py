@@ -1,5 +1,6 @@
 import pandas as pd
 import nltk
+from nltk.stem.lancaster import LancasterStemmer
 
 ########################################
 # Once you download the data
@@ -21,12 +22,12 @@ import nltk
 # https://www.kaggle.com/kazanova/sentiment140
 # TRAINPATH should be changed to reflect your local 
 # filepath
-TRAINPATH = "/Users/bmiroglio/Desktop/training.1600000.processed.noemoticon.csv"
+TRAINPATH = "/Users/bmiroglio/Desktop/archive/training.1600000.processed.noemoticon.csv"
 
 
 # csv file originally named "Week 3 Social Firefox 63 Desktop - Sheet8.csv"
 # TARGET_PATH should be changed to reflect your local filepath
-TARGETPATH = "/Users/bmiroglio/Desktop/week3social.csv"
+TARGETPATH = "/Users/bmiroglio/Desktop/archive/week3social.csv"
 
 
 # ignore pesky pandas warnings
@@ -37,26 +38,23 @@ pd.options.mode.chained_assignment = None
 STOP_WORDS = set(nltk.corpus.stopwords.words('english')) 
 
 
-# map raw tweet labels
-# to human-readable labels
-SENTIMENT_MAP = {
-    0: "neg",
-    2: "neut",
-    4: "pos"
-}
+sub
 
 
 def tokenize_tweet(tweet):
     # this will clean text, ignoring 
     # punctuation and splitting into
     # individual words
-    tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+')
+    tokenizer = nltk.tokenize.RegexpTokenizer(r'[^0-9a-zA-Z]+')
     
+    # word stemmer, i.e. maximum -> maxim
+    st = LancasterStemmer()
+
     # text is the last element
     # here we clean the text via the
     # tokenizer defined above
     text = tokenizer.tokenize(tweet)
-    return [i for i in text if i not in STOP_WORDS]
+    return [i.lower() for i in text if i not in STOP_WORDS]
 
 
 def trim_data(data):
@@ -133,10 +131,11 @@ if __name__ == "__main__":
     # only use 10,000 entries for now
     # and only look at top 2000 words
     print("Constructing Training Classifier...")
-    top_words = get_top_words(tweets, top=2000)
+    top_words = get_top_words(tweets, top=10000)
     tweet_words = [(i[1].words, i[1].label)for i in tweets.iterrows()]
     features = [(document_features(tweet, top_words), label)
                 for (tweet, label) in tweet_words][:10000] # only use 10,000 entries for now
+
 
 
     # Use 90% for training, 10% for testing
@@ -160,13 +159,12 @@ if __name__ == "__main__":
     # assign senitment label to firefox tweets                        
     firefox_tweets.loc[:, 'label'] = classifier.classify_many(firefox_features)
 
-
-    # We've now predicted sentiment for the Firefox tweets
-    # We can assume this as "ground truth" to create a 
-    # "dummy classifer" that allows us to identify words that
-    # most associated with negative and positive tweets
-    # this is almost an exact copy of the code under the print 
-    # statement "Constructing Training Classifier"
+    # # We've now predicted sentiment for the Firefox tweets
+    # # We can assume this as "ground truth" to create a 
+    # # "dummy classifer" that allows us to identify words that
+    # # most associated with negative and positive tweets
+    # # this is almost an exact copy of the code under the print 
+    # # statement "Constructing Training Classifier"
     print("Constructing Target (Dummy) Classifier...")
     ff_top_words = get_top_words(firefox_tweets, top=2000)
     ff_tweet_words = [(i[1].words, i[1].label)for i in firefox_tweets.iterrows()]
